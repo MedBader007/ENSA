@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Évaluation - Espace Enseignant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    :root {
+      --primary: #2C3E50;
+      --secondary: #3498DB;
+      --accent: #27AE60;
+      --light: #ECF0F1;
+      --white: #FFFFFF;
+      --dark: #1A1A1A;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .logo {
+      height: 60px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 100%;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .logo:hover img {
+      filter: brightness(0) invert(0.8) sepia(1) hue-rotate(180deg) saturate(5);
+      transform: scale(1.05);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+      position: relative;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: var(--secondary);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      background-color: var(--white);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .container:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #ddd;
+      transition: var(--transition);
+    }
+
+    th {
+      background-color: var(--secondary);
+      color: var(--white);
+      position: sticky;
+      top: 60px;
+    }
+
+    tr:hover {
+      background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    input[type="number"] {
+      padding: 0.4rem;
+      width: 70px;
+      text-align: center;
+      border-radius: 4px;
+      border: 1px solid #bbb;
+      transition: var(--transition);
+    }
+
+    input[type="number"]:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+      outline: none;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      background-color: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 2px 5px rgba(39, 174, 96, 0.3);
+    }
+
+    .btn:hover {
+      background-color: #219653;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(39, 174, 96, 0.4);
+    }
+
+    footer {
+      text-align: center;
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 1.5rem;
+      margin-top: 3rem;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 6px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1001;
+      animation: fadeInRight 0.5s, fadeOutRight 0.5s 2.5s forwards;
+    }
+
+    .notification.success {
+      background-color: var(--accent);
+    }
+
+    .notification.error {
+      background-color: #e74c3c;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      nav ul {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <a onclick="window.location.href='../1erInterface/acceuil.html'"><img src="LOGO-ENSA.png" alt="ENSA Kénitra"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a onclick="window.location.href='../1erInterface/acceuil.html'">Accueil</a></li>
+        <li><a href="Evaluation.html">Évaluation</a></li>
+        <li><a href="deconnexion.html">Déconnexion</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Évaluation des étudiants</h1>
+
+    <form>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom de l'étudiant</th>
+            <th>Projet</th>
+            <th>Note /20</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ahmed El Yacoubi</td>
+            <td>Application Mobile</td>
+            <td><input type="number" min="0" max="20" name="note1"></td>
+            <td><button class="btn" type="submit">
+              <i class="fas fa-check"></i>
+              <span>Valider</span>
+            </button></td>
+          </tr>
+          <tr>
+            <td>Fatima Zahra Idrissi</td>
+            <td>Site Web Dynamique</td>
+            <td><input type="number" min="0" max="20" name="note2"></td>
+            <td><button class="btn" type="submit">
+              <i class="fas fa-check"></i>
+              <span>Valider</span>
+            </button></td>
+          </tr>
+          <tr>
+            <td>Mohamed Amrani</td>
+            <td>Robot Programmable</td>
+            <td><input type="number" min="0" max="20" name="note3"></td>
+            <td><button class="btn" type="submit">
+              <i class="fas fa-check"></i>
+              <span>Valider</span>
+            </button></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <footer>
+    © 2025 École Nationale des Sciences Appliquées de Kénitra
+  </footer>
+
+  <script>
+    // Simulation de validation
+    document.querySelectorAll('.btn').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const input = this.parentElement.previousElementSibling.querySelector('input');
+        if (input.value === '' || input.value < 0 || input.value > 20) {
+          showNotification('Veuillez entrer une note valide (0-20)', 'error');
+        } else {
+          showNotification('Note enregistrée avec succès !', 'success');
+        }
+      });
+    });
+
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        ${message}
+      `;
+      document.body.appendChild(notification);
+      
+      // Suppression après l'animation
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Admin - ENSA Kénitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --secondary: #3498DB;
+            --accent: #27AE60;
+            --light: #ECF0F1;
+            --dark: #1A1A1A;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+        .logo {
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 100%;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .logo:hover img {
+            filter: brightness(0) invert(0.8) sepia(1) hue-rotate(180deg) saturate(5);
+            transform: scale(1.05);
+        }
+        .register-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        .register-container:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        .register-container h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.6s ease-out;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        .form-group small {
+            display: block;
+            margin-top: 0.3rem;
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            animation: fadeIn 0.7s ease-out;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .btn {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(39, 174, 96, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.4);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        .retour {
+            cursor: pointer;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .retour:hover {
+            filter: brightness(0) invert(0.8) sepia(1) hue-rotate(180deg) saturate(5);
+            transform: translateX(-3px);
+        }
+        .admin-badge {
+            background-color: #e74c3c;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+        small {
+            display: block;
+            margin-top: 0.3rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Notification améliorée */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 6px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+            animation: fadeInRight 0.5s, fadeOutRight 0.5s 2.5s forwards;
+        }
+        .notification.error {
+            background-color: #e74c3c;
+        }
+        .notification.warning {
+            background-color: #f39c12;
+        }
+
+        /* Animations personnalisées */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .register-container {
+                margin: 1.5rem auto;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a onclick="window.location.href='../1erInterface/acceuil.html'"><img src="LOGO-ENSA.png" alt="ENSA Kénitra"></a>
+        </div>
+        <a class="retour" onclick="window.location.href='../1erInterface/acceuil.html'">
+            <i class="fas fa-arrow-left"></i> Retour à l'accueil
+        </a>
+    </header>
+
+    <div class="register-container">
+        <h2>Inscription Administrateur </h2>
+
+        <form id="admin-form">
+            <!-- Nom et Prénom -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="admin-lastname">Nom</label>
+                    <input type="text" id="admin-lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-firstname">Prénom</label>
+                    <input type="text" id="admin-firstname" required>
+                </div>
+            </div>
+
+            <!-- Email institutionnel -->
+            <div class="form-group">
+                <label for="admin-email">Email institutionnel</label>
+                <input type="email" id="admin-email" placeholder="ex: prenom.nom@uit.ac.ma" required>
+            </div>
+
+            <!-- Rôle administratif -->
+            <div class="form-group">
+                <label for="admin-role">Rôle administratif</label>
+                <select id="admin-role" required>
+                    <option value="">Sélectionnez...</option>
+                    <option value="Directeur">Directeur</option>
+                    <option value="Responsable pédagogique">Responsable pédagogique</option>
+                    <option value="Administrateur système">Administrateur système</option>
+                    <option value="Gestionnaire">Gestionnaire</option>
+                    <option value="Superadmin">Superadmin</option>
+                </select>
+            </div>
+            
+
+            <!-- Mot de passe -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="admin-password">Mot de passe </label>
+                    <input type="password" id="admin-password" minlength="10" required>
+                    <small>8 caractères minimum</small>
+                </div>
+                <div class="form-group">
+                    <label for="admin-confirm-password">Confirmation</label>
+                    <input type="password" id="admin-confirm-password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">
+                <i class="fas fa-user-shield"></i>
+                <span>S'inscrire</span>
+            </button>
+        </form>
+
+        <p style="text-align: center; margin-top: 1rem; animation: fadeIn 0.8s ease-out;">
+            Déjà un compte ? <a href="loginAdmin.html" style="color: var(--secondary); text-decoration: none; font-weight: 500;">Se connecter</a>
+        </p>
+    </div>
+
+    <footer>
+        <p>© 2025 École Nationale des Sciences Appliquées de Kénitra</p>
+    </footer>
+
+    <script>
+        // Validation avancée avec notifications stylisées
+        document.getElementById('admin-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('admin-password').value;
+            const confirmPassword = document.getElementById('admin-confirm-password').value;
+            
+            // Vérification de correspondance
+            if (password !== confirmPassword) {
+                showNotification("Les mots de passe ne correspondent pas !", "error");
+                return;
+            }
+            
+            // Vérification de la complexité
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/;
+            if (!passwordRegex.test(password)) {
+                showNotification("Le mot de passe doit contenir au moins 10 caractères, dont une majuscule, une minuscule et un chiffre", "error");
+                return;
+            }
+            
+            // Si tout est valide
+            showNotification("Inscription administrateur réussie !", "success");
+            // Ici vous ajouteriez la logique d'envoi au serveur
+            // setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 2000);
+        });
+
+        function showNotification(message, type) {
+            // Supprimer les notifications existantes
+            const existingNotifs = document.querySelectorAll('.notification');
+            existingNotifs.forEach(notif => notif.remove());
+            
+            // Créer la nouvelle notification
+            const notif = document.createElement('div');
+            notif.className = `notification ${type}`;
+            
+            // Ajouter une icône selon le type
+            let icon;
+            if (type === 'error') {
+                icon = '<i class="fas fa-exclamation-circle"></i>';
+            } else {
+                icon = '<i class="fas fa-check-circle"></i>';
+            }
+            
+            notif.innerHTML = `${icon} <span>${message}</span>`;
+            document.body.appendChild(notif);
+            
+            // Suppression automatique après 3 secondes
+            setTimeout(() => {
+                notif.style.animation = 'fadeOutRight 0.5s forwards';
+                setTimeout(() => notif.remove(), 500);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact - ENSA Kénitra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2C3E50;
+      --secondary: #3498DB;
+      --accent: #27AE60;
+      --light: #ECF0F1;
+      --white: #FFFFFF;
+      --dark: #1A1A1A;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light);
+      margin: 0;
+      padding: 0;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .logo {
+      height: 60px;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 100%;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .logo:hover img {
+      filter: brightness(0) invert(0.8) sepia(1) hue-rotate(180deg) saturate(5);
+      transform: scale(1.05);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      padding: 0;
+      margin: 0;
+  }
+  
+  nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+      position: relative;
+      cursor: pointer;
+  }
+  
+  nav a:hover {
+      color: var(--secondary);
+  }
+  
+  nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary);
+      transition: var(--transition);
+  }
+  
+  nav a:hover::after {
+      width: 100%;
+  }
+
+
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: var(--white);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .container:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    h1 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    label {
+      font-weight: bold;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input, textarea {
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      width: 100%;
+      transition: var(--transition);
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .btn-submit {
+      background-color: var(--accent);
+      color: var(--white);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 2px 5px rgba(39, 174, 96, 0.3);
+    }
+
+    .btn-submit:hover {
+      background-color: #219653;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(39, 174, 96, 0.4);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--primary);
+      color: var(--white);
+      margin-top: 2rem;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 6px;
+      box-shadow: var(--shadow-lg);
+      z-index: 1001;
+      animation: fadeInRight 0.5s, fadeOutRight 0.5s 2.5s forwards;
+    }
+
+    .notification.error {
+      background-color: #e74c3c;
+    }
+
+    /* Contact Info */
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .contact-card {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-card i {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    .contact-card h3 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+
+      .contact-info {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="acceuil.html"><img src="LOGO-ENSA.png" alt="ENSA Kénitra"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="acceuil.html">Accueil</a></li>
+        <li><a href="Apropos.html">À propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Contactez-Nous</h1>
+    
+    <form id="contact-form">
+      <div class="form-group">
+        <label for="name">Nom complet</label>
+        <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Adresse e-mail</label>
+        <input type="email" id="email" name="email" placeholder="prenom.nom@uit.ac.ma" required>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Sujet</label>
+        <input type="text" id="subject" name="subject" placeholder="Sujet du message" required>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Votre message ici..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Envoyer</button>
+    </form>
+
+    <div class="contact-info">
+      <div class="contact-card animate__animated animate__fadeInLeft">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Adresse</h3>
+        <p>ENSA Kénitra<br>BP 77, Kénitra, Maroc</p>
+      </div>
+      
+      <div class="contact-card animate__animated animate__fadeInUp">
+        <i class="fas fa-phone"></i>
+        <h3>Téléphone</h3>
+        <p>+212 5 37 32 12 34</p>
+        <p>+212 5 37 32 56 78</p>
+      </div>
+      
+      <div class="contact-card animate__animated animate__fadeInRight">
+        <i class="fas fa-envelope"></i>
+        <h3>Email</h3>
+        <p>contact@ensak.ma</p>
+        <p>direction@ensak.ma</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 École Nationale des Sciences Appliquées de Kénitra</p>
+  </footer>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Récupération des valeurs du formulaire
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Validation simple
+      if (!name || !email || !subject || !message) {
+        showNotification('Veuillez remplir tous les champs', 'error');
+        return;
+      }
+      
+      // Ici vous ajouteriez la logique d'envoi du formulaire
+      // Pour l'exemple, nous simulons un envoi réussi
+      showNotification('Message envoyé avec succès!', 'success');
+      
+      // Réinitialisation du formulaire après envoi
+      setTimeout(() => {
+        this.reset();
+      }, 2000);
+    });
+
+    function showNotification(message, type) {
+      // Supprimer les notifications existantes
+      const existingNotifs = document.querySelectorAll('.notification');
+      existingNotifs.forEach(notif => notif.remove());
+      
+      // Créer la nouvelle notification
+      const notif = document.createElement('div');
+      notif.className = `notification ${type}`;
+      notif.textContent = message;
+      document.body.appendChild(notif);
+      
+      // Suppression automatique après 3 secondes
+      setTimeout(() => {
+        notif.style.animation = 'fadeOutRight 0.5s forwards';
+        setTimeout(() => notif.remove(), 500);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

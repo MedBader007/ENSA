@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - ENSA Kénitra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    :root {
+      --primary: #2C3E50;
+      --secondary: #3498DB;
+      --accent: #27AE60;
+      --light: #ECF0F1;
+      --dark: #1A1A1A;
+      --white: #FFFFFF;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .logo {
+      height: 60px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 100%;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .logo:hover img {
+      filter: brightness(0) invert(0.8) sepia(1) hue-rotate(180deg) saturate(5);
+      transform: scale(1.05);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--secondary);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    h1, h2 {
+      color: var(--primary);
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .section {
+      background-color: var(--white);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 2rem;
+      transition: var(--transition);
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .section:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-5px);
+    }
+
+    /* Fake Bar Chart */
+    .bar-chart {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-end;
+      height: 200px;
+      margin-top: 2rem;
+      justify-content: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .bar {
+      width: 40px;
+      background-color: var(--secondary);
+      text-align: center;
+      color: var(--white);
+      font-size: 0.9rem;
+      border-radius: 4px 4px 0 0;
+      transition: var(--transition);
+    }
+
+    .bar:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .bar1 { height: 80%; }
+    .bar2 { height: 50%; background-color: var(--accent); }
+    .bar3 { height: 30%; background-color: #E67E22; }
+
+    /* Fake Pie Chart */
+    .pie-chart {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(var(--secondary) 0% 50%, var(--accent) 50% 80%, #E67E22 80% 100%);
+      margin: 2rem auto;
+      transition: var(--transition);
+      animation: zoomIn 0.8s ease-out;
+    }
+
+    .pie-chart:hover {
+      transform: scale(1.05);
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      animation: fadeIn 1s ease-out;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    tr:hover {
+      background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    th {
+      background-color: var(--secondary);
+      color: var(--white);
+      position: sticky;
+      top: 60px;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-edit {
+      background-color: #2980B9;
+      color: var(--white);
+      box-shadow: 0 2px 5px rgba(41, 128, 185, 0.3);
+    }
+
+    .btn-edit:hover {
+      background-color: #2472a4;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(41, 128, 185, 0.4);
+    }
+
+    .btn-delete {
+      background-color: #E74C3C;
+      color: var(--white);
+      box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
+    }
+
+    .btn-delete:hover {
+      background-color: #d62c1a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(231, 76, 60, 0.4);
+    }
+
+    .btn-export {
+      background-color: var(--accent);
+      color: var(--white);
+      margin: 0.5rem;
+      box-shadow: 0 2px 5px rgba(39, 174, 96, 0.3);
+    }
+
+    .btn-export:hover {
+      background-color: #219653;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(39, 174, 96, 0.4);
+    }
+
+    .export-buttons {
+      text-align: right;
+      margin-bottom: 1rem;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 6px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1001;
+      animation: fadeInRight 0.5s, fadeOutRight 0.5s 2.5s forwards;
+    }
+
+    .notification.success {
+      background-color: var(--accent);
+    }
+
+    .notification.error {
+      background-color: #e74c3c;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .bar-chart {
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+      }
+      
+      .bar {
+        width: 80%;
+        height: 40px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+      }
+      
+      nav ul {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <a onclick="window.location.href='../1erInterface/acceuil.html'"><img src="LOGO-ENSA.png" alt="ENSA Kénitra"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#dash-section">Dashboard</a></li>
+        <li><a href="#utilisateurs-section">Utilisateurs</a></li>
+        <li><a href="Parametres.html">Paramètres</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Espace Administrateur</h1>
+
+    <!-- Dashboard -->
+    <section class="section">
+      <h2 id="dash-section">Statistiques des Projets</h2>
+      <div class="bar-chart">
+        <div class="bar bar1">Validés</div>
+        <div class="bar bar2">En cours</div>
+        <div class="bar bar3">Rejetés</div>
+      </div>
+      <div class="pie-chart"></div>
+    </section>
+
+    <!-- Gestion utilisateurs -->
+    <section class="section">
+      <h2 id="utilisateurs-section">Gestion des Utilisateurs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ahmed Z.</td>
+            <td>az@ensak.ma</td>
+            <td>Étudiant</td>
+            <td>
+              <button class="btn btn-edit">
+                <i class="fas fa-edit"></i>
+                <span>Éditer</span>
+              </button>
+              <button class="btn btn-delete">
+                <i class="fas fa-trash"></i>
+                <span>Supprimer</span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>Prof. Latifa B.</td>
+            <td>lb@ensak.ma</td>
+            <td>Enseignant</td>
+            <td>
+              <button class="btn btn-edit">
+                <i class="fas fa-edit"></i>
+                <span>Éditer</span>
+              </button>
+              <button class="btn btn-delete">
+                <i class="fas fa-trash"></i>
+                <span>Supprimer</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Export -->
+    <section class="section">
+      <h2>Exportation</h2>
+      <div class="export-buttons">
+        <button class="btn btn-export">
+          <i class="fas fa-file-pdf"></i>
+          <span>Exporter en PDF</span>
+        </button>
+        <button class="btn btn-export">
+          <i class="fas fa-file-excel"></i>
+          <span>Exporter en Excel</span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Simulation d'actions
+    document.querySelectorAll('.btn-edit').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        showNotification('Mode édition activé', 'success');
+      });
+    });
+
+    document.querySelectorAll('.btn-delete').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+          showNotification('Utilisateur supprimé avec succès', 'success');
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-export').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        showNotification('Export en cours de préparation...', 'success');
+      });
+    });
+
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        ${message}
+      `;
+      document.body.appendChild(notification);
+      
+      // Suppression après l'animation
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

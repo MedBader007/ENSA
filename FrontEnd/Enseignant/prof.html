@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof - ENSA Kénitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --secondary: #3498DB;
+            --accent: #27AE60;
+            --light: #ECF0F1;
+            --dark: #1A1A1A;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        .logo {
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 100%;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .logo:hover img {
+            filter: brightness(0) invert(0.8) sepia(1) hue-rotate(180deg) saturate(5);
+            transform: scale(1.05);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        h1, h2 {
+            color: var(--primary);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .dashboard, .projects, .evaluation {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .dashboard:hover, .projects:hover, .evaluation:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+        
+        .dashboard p {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .dashboard p strong {
+            color: var(--primary);
+        }
+        
+        .filters {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .filters label {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .filters input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            flex: 1;
+            min-width: 150px;
+            transition: var(--transition);
+        }
+        
+        .filters input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .card p {
+            color: var(--dark);
+            margin: 0.5rem 0;
+        }
+        
+        .btn {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(39, 174, 96, 0.3);
+        }
+        
+        .btn:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .stars input {
+            display: none;
+        }
+        
+        .stars label {
+            font-size: 1.5rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .stars input:checked ~ label,
+        .stars label:hover,
+        .stars label:hover ~ label {
+            color: #FFD700;
+            transform: scale(1.2);
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin: 1rem 0;
+            resize: vertical;
+            min-height: 100px;
+            transition: var(--transition);
+        }
+        
+        textarea:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: var(--white);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 6px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+            animation: fadeInRight 0.5s, fadeOutRight 0.5s 2.5s forwards;
+        }
+        
+        .notification.success {
+            background-color: var(--accent);
+        }
+        
+        .notification.error {
+            background-color: #e74c3c;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a onclick="window.location.href='../1erInterface/acceuil.html'"><img src="LOGO-ENSA.png" alt="ENSA Kénitra"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a onclick="window.location.href='../1erInterface/acceuil.html'">Accueil</a></li>
+                <li><a href="Evaluation.html">Évaluations</a></li>
+                <li><a onclick="window.location.href='../1erInterface/contact.html'">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Espace Enseignant</h1>
+
+        <!-- Tableau de bord -->
+        <section class="dashboard">
+            <h2>Tableau de Bord</h2>
+            <p>Projets Validés : <strong>12</strong></p>
+            <p>Projets en Attente : <strong>5</strong></p>
+        </section>
+
+        <!-- Liste des projets -->
+        <section class="projects">
+            <h2>Liste des Projets</h2>
+            <div class="filters">
+                <label for="filter-etudiant">Filtrer par étudiant :</label>
+                <input type="text" id="filter-etudiant" placeholder="Nom de l'étudiant">
+                <label for="filter-module">Filtrer par module :</label>
+                <input type="text" id="filter-module" placeholder="Nom du module">
+                <button class="btn">
+                    <i class="fas fa-filter"></i>
+                    <span>Appliquer</span>
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>Projet : Application Web</h3>
+                <p><strong>Étudiant :</strong> Ali B.</p>
+                <p><strong>Module :</strong> Technologies Web</p>
+                <button class="btn">
+                    <i class="fas fa-download"></i>
+                    <span>Télécharger Livrables</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Évaluation -->
+        <section class="evaluation">
+            <h2>Évaluation du Projet</h2>
+            <form>
+                <p>Note (étoiles) :</p>
+                <div class="stars">
+                    <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+                    <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+                    <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+                    <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+                    <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
+                </div>
+
+                <p>Commentaires :</p>
+                <textarea placeholder="Ajouter un commentaire..."></textarea>
+                <button type="submit" class="btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Soumettre l'évaluation</span>
+                </button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>À propos</h4>
+                <p>L'École Nationale des Sciences Appliquées de Kénitra est un établissement d'enseignement supérieur dédié à la formation d'ingénieurs compétents.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: contact@ensak.ac.ma</p>
+                <p>Téléphone: +212 537 374 000</p>
+                <p>Adresse: BP 242, Kénitra, Maroc</p>
+            </div>
+            <div class="footer-section">
+                <h4>Liens utiles</h4>
+                <p><a href="#">Site officiel ENSA Kénitra</a></p>
+                <p><a href="#">Portail étudiant</a></p>
+                <p><a href="#">Bibliothèque numérique</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 École Nationale des Sciences Appliquées de Kénitra</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simulation de soumission du formulaire
+        document.querySelector('.evaluation form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showNotification('Évaluation enregistrée avec succès !', 'success');
+        });
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                ${message}
+            `;
+            document.body.appendChild(notification);
+            
+            // Suppression après l'animation
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENSA Kénitra - Plateforme de Gestion des Projets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: rgb(44, 62, 80);    /* Bleu foncé */
+            --secondary: #3498DB;   /* Bleu clair */
+            --accent: #27AE60;      /* Vert */
+            --light: #ECF0F1;       /* Gris clair */
+            --dark: #1A1A1A;        /* Noir */
+            --white: #FFFFFF;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .logo {
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            transition: var(--transition);
+        }
+
+        .logo:hover img {
+            filter: brightness(0) invert(0.8) sepia(1) hue-rotate(180deg) saturate(5);
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-active {
+            color: var(--secondary);
+        }
+
+        .nav-active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .hamburger:hover {
+            color: var(--secondary);
+        }
+
+        /* Search Bar */
+        .search-bar {
+            padding: 1rem 2rem;
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 2.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 2.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            display: none;
+        }
+
+        .search-bar input:not(:placeholder-shown) + .clear-search {
+            display: block;
+        }
+        
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            animation: fadeIn 0.8s ease-out;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* User Cards */
+        .user-section {
+            background-color: #f9f9f9;
+            padding: 5rem 2rem;
+        }
+
+        .user-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .user-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .user-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent);
+        }
+
+        .user-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .user-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .user-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .user-card p {
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo img {
+            height: 60px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-links h4::after, .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-top: 0.2rem;
+        }
+
+        .contact-text {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.3rem;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                clip-path: circle(0px at 90% -10%);
+                transition: all 0.5s ease-out;
+                pointer-events: none;
+            }
+
+            nav ul.active {
+                clip-path: circle(1000px at 90% -10%);
+                pointer-events: all;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .user-card, .feature-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="acceuil.html"><img src="LOGO-ENSA.png" alt="ENSA Kénitra"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="acceuil.html" class="nav-active">Accueil</a></li>
+                <li><a href="Apropos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
+       
+    </header>
+    <div class="search-bar">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" placeholder="Rechercher un projet, un étudiant...">
+        <button class="clear-search">✖</button>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="animate__animated animate__fadeIn">Plateforme de Gestion des Projets de Stage</h1>
+            <p class="animate__animated animate__fadeIn">Un environnement intégré pour la soumission, l'évaluation et le suivi des projets de stage des étudiants de l'ENSA Kénitra.</p>
+            <div class="hero-buttons animate__animated animate__fadeIn">
+                <a href="#features" class="btn btn-primary">
+                    <i class="fas fa-info-circle"></i> En savoir plus
+                </a>
+                <a href="#user-cards" class="btn btn-secondary">
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Nos Fonctionnalités</h2>
+            <p>Découvrez les avantages de notre plateforme dédiée à la gestion des projets de stage</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card animate__animated animate__fadeInUp">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Soumission Simplifiée</h3>
+                <p>Les étudiants peuvent soumettre leurs projets et documents en quelques clics, avec un suivi en temps réel de l'avancement.</p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
+                <div class="feature-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Évaluation Centralisée</h3>
+                <p>Les enseignants accèdent à une interface unique pour évaluer les projets, fournir des feedbacks et valider les travaux.</p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Tableau de Bord Complet</h3>
+                <p>Les administrateurs disposent d'outils avancés pour suivre les statistiques et gérer l'ensemble du processus.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="user-section" id="user-cards">
+        <div class="user-container">
+            <div class="section-title">
+                <h2>Accès par Profil</h2>
+                <p>Connectez-vous selon votre statut pour accéder aux fonctionnalités dédiées</p>
+            </div>
+            <div class="user-cards">
+                <div class="user-card animate__animated animate__fadeIn">
+                    <div class="user-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Étudiant</h3>
+                    <p>Soumettez vos projets de stage, gérez vos livrables et consultez votre historique et vos évaluations.</p>
+                    <a href="../Etudiant/loginEtudiant.html" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Accéder
+                    </a>
+                </div>
+                <div class="user-card animate__animated animate__fadeIn" style="animation-delay: 0.2s">
+                    <div class="user-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Enseignant</h3>
+                    <p>Évaluez les projets soumis, donnez des feedbacks constructifs et validez les travaux des étudiants.</p>
+                    <a href="../Enseignant/loginEnseignant.html" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Accéder
+                    </a>
+                </div>
+                <div class="user-card animate__animated animate__fadeIn" style="animation-delay: 0.4s">
+                    <div class="user-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Administrateur</h3>
+                    <p>Gérez les utilisateurs, consultez les statistiques détaillées et exportez les données du système.</p>
+                    <a href="../Administrateur/loginAdmin.html" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Accéder
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="LOGO-ENSA.png" alt="ENSA Kénitra">
+                </div>
+                <p>L'École Nationale des Sciences Appliquées de Kénitra est un établissement public de formation d'ingénieurs relevant de l'Université Ibn Tofaïl.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Liens Utiles</h4>
+                <ul>
+                    <li><a href="acceuil.html"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                    <li><a href="Apropos.html"><i class="fas fa-chevron-right"></i> À propos</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contactez-nous</h4>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        BP 242, Avenue de l'Université, Kénitra, Maroc
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        +212 537 374 000<br>
+                        +212 537 374 001
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        contact@ensak.ma<br>
+                        direction@ensak.ma
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 École Nationale des Sciences Appliquées de Kénitra. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav ul');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.innerHTML = nav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+
+        
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('nav-active');
+                }
+            });
+        });
+
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate__animated');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const animation = entry.target.getAttribute('class').split('animate__')[1];
+                    entry.target.classList.add('animate__' + animation);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
